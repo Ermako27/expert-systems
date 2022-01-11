@@ -36,16 +36,20 @@ def findClosedRules(workingMemory, openedRules):
 def dataToTargetBFS(rules, initialWorkingMemory, target):
     openedRules = rules
     workingMemory = initialWorkingMemory
+
+    # получаем закрытые правила
     rulesQueue = findClosedRules(workingMemory, openedRules)
 
+    # проверяем не достигнута ли цель
     reached = isReached(target, workingMemory)
+    # пока цель не достигнута и еще есть закрытые правила то продолжаем искать цель
     while not reached and len(rulesQueue) > 0:
         for rule in rulesQueue:
-            workingMemory.extend(rule.consequent)
+            workingMemory.extend(rule.consequent) # добавляем консеквенты закрытых правил в рабочую память
 
-        openedRules = removeClosedRules(rulesQueue, openedRules)
-        rulesQueue = findClosedRules(workingMemory, openedRules)
-        reached = isReached(target, workingMemory)
+        openedRules = removeClosedRules(rulesQueue, openedRules) # удаляем из открытых правил, закрытые правила
+        rulesQueue = findClosedRules(workingMemory, openedRules) # находим в рабочей памяти новые закрытые правила
+        reached = isReached(target, workingMemory) # проверяем есть ли в рабочей памяти наша цель
 
     return reached, workingMemory
 

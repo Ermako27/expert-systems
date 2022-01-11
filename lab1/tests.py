@@ -1,5 +1,5 @@
 from rules import Rules
-from graph import drawGraph
+from graph import drawGraph, drawResultGraph
 from core import dataToTargetBFS
 class Tests:
     def case1(self):
@@ -10,5 +10,6 @@ class Tests:
         [reached, workingMemory] = dataToTargetBFS(rules, initial, target)
 
         drawGraph(rules, 'whole_graph_1');
+        drawResultGraph(workingMemory,rules,'result_graph_1')
 
         print(reached, workingMemory)
